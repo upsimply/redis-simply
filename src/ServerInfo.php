@@ -14,7 +14,9 @@ namespace RedisSimply;
 final class ServerInfo
 {
     private const array FIELDS = [
-        'redis_version', 'redis_mode', 'os', 'uptime_in_seconds',
+        // Valkey still reports the Redis release it is compatible with as
+        // redis_version, and names itself in server_name and valkey_version.
+        'redis_version', 'valkey_version', 'server_name', 'redis_mode', 'os', 'uptime_in_seconds',
         'connected_clients', 'blocked_clients',
         'used_memory', 'used_memory_human', 'used_memory_peak_human', 'maxmemory', 'maxmemory_human', 'maxmemory_policy', 'mem_fragmentation_ratio',
         'total_commands_processed', 'instantaneous_ops_per_sec', 'keyspace_hits', 'keyspace_misses', 'expired_keys', 'evicted_keys',
