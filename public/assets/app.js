@@ -814,7 +814,9 @@ document.addEventListener('alpine:init', () => {
             const hits = Number(f.keyspace_hits || 0);
             const misses = Number(f.keyspace_misses || 0);
             const rows = [
-                ['Version', `${f.redis_version || '?'} (${f.redis_mode || 'standalone'})`],
+                ['Server', f.valkey_version
+                    ? `Valkey ${f.valkey_version} (${f.redis_mode || 'standalone'})`
+                    : `Redis ${f.redis_version || '?'} (${f.redis_mode || 'standalone'})`],
                 ['Uptime', f.uptime_in_seconds ? this.ttlLong(Number(f.uptime_in_seconds) * 1000) : '—'],
                 ['Memory used', f.used_memory_human || '—'],
                 ['Peak memory', f.used_memory_peak_human || '—'],
