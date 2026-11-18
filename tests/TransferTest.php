@@ -112,6 +112,16 @@ final class TransferTest extends TestCase
         $snapshot = [];
 
         foreach ($keys as $key) {
+            // A set has no member order, and since Redis 7.2 a small set's DUMP
+            // keeps insertion order, so compare its sorted members instead.
+            if ($this->redis->type($key) === \Redis::REDIS_SET) {
+                $members = $this->redis->sMembers($key);
+                sort($members);
+                $snapshot[bin2hex($key)] = ['set' => $members];
+
+                continue;
+            }
+
             $snapshot[bin2hex($key)] = $this->redis->dump($key);
         }
 
